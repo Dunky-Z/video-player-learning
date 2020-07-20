@@ -57,6 +57,18 @@ int main()
 	}
 	cout << "open " << path << " success! " << endl;
 
+	//获取流信息 
+	re = avformat_find_stream_info(ic, 0);
+
+	//总时长(毫秒)
+	int totalMs = ic->duration / (AV_TIME_BASE / 1000);
+	cout << "totalMs = " << totalMs << endl;
+
+	//打印视频流详细信息
+	av_dump_format(ic, 0, path, 0);
+
+
+
 	if (ic)
 	{
 		//释放清理上下文
