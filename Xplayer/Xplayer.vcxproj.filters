@@ -35,6 +35,9 @@
     <QtMoc Include="..\src\Xplayer\Xplayer.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="..\src\Xplayer\XVideoWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="..\src\Xplayer\Xplayer.qrc">
@@ -57,6 +60,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Xplayer\Xplayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Xplayer\XVideoWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

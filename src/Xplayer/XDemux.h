@@ -40,6 +40,7 @@ public:
 	virtual ~XDemux();
 	//媒体总时长，毫秒
 	int totalMs = 0;
+	int width, height;
 protected:
 	std::mutex mux;
 	//解封装上下文

@@ -14,6 +14,6 @@ class Xplayer : public QWidget
 public:
     Xplayer(QWidget *parent = Q_NULLPTR);
 
-private:
+//private:
     Ui::XplayerClass ui;
 };

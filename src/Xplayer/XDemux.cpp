@@ -2,7 +2,7 @@
 
 extern "C"
 {
-	#include "libavformat/avformat.h"
+#include "libavformat/avformat.h"
 }
 
 #pragma comment(lib,"avformat.lib")
@@ -63,6 +63,8 @@ bool XDemux::Open(const char * url)
 	cout << "format = " << as->codecpar->format << endl;
 	cout << "width=" << as->codecpar->width << endl;
 	cout << "height=" << as->codecpar->height << endl;
+	width = as->codecpar->width;
+	height = as->codecpar->height;
 	//帧率 fps 分数转换
 	cout << "video fps = " << r2d(as->avg_frame_rate) << endl;
 

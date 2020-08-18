@@ -29,6 +29,8 @@ int main(int argc, char *argv[])
 	XDecode adecode;
 	cout << "adecode.Open() = " << adecode.Open(demux.CopyAPara()) << endl;
 
+	//初始化显示
+
 	for (;;)
 	{
 		AVPacket *pkt = demux.Read();
@@ -51,5 +53,8 @@ int main(int argc, char *argv[])
 	QApplication a(argc, argv);
 	Xplayer w;
 	w.show();
+
+	//初始化gl窗口
+	w.ui.video->Init(demux.width, demux.height);
 	return a.exec();
 }
