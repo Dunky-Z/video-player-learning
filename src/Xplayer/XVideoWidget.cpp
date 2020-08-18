@@ -1,10 +1,10 @@
-
-
-
-
 #include <QDebug>
 #include <QTimer>
 #include "XVideoWidget.h"
+
+extern "C" {
+#include <libavutil/frame.h>
+}
 
 //自动加双引号
 #define GET_STR(x) #x
@@ -16,13 +16,13 @@ FILE *fp = NULL;
 //顶点shader
 const char *vString = GET_STR(
 	attribute vec4 vertexIn;
-	attribute vec2 textureIn;
-	varying vec2 textureOut;
-	void main(void)
-	{
-		gl_Position = vertexIn;
-		textureOut = textureIn;
-	}
+attribute vec2 textureIn;
+varying vec2 textureOut;
+void main(void)
+{
+	gl_Position = vertexIn;
+	textureOut = textureIn;
+}
 );
 
 
@@ -44,13 +44,35 @@ void main(void)
 		1.13983, -0.58060, 0.0) * yuv;
 	gl_FragColor = vec4(rgb, 1.0);
 }
-
 );
 
 
 
+void XVideoWidget::Repaint(AVFrame * frame)
+{
+	if (!frame)return;
+	mux.lock();
+
+	//容错，保证尺寸正确
+	if (!datas[0] || width * height == 0 || frame->width != this->width || frame->height != this->height)
+	{
+		av_frame_free(&frame);
+		mux.unlock();
+		return;
+	}
+
+	memcpy(datas[0], frame->data[0], width*height);
+	memcpy(datas[1], frame->data[1], width*height / 4);
+	memcpy(datas[2], frame->data[2], width*height / 4);
+	//行对齐问题
+	mux.unlock();
+
+	//刷新显示
+	update();
+}
+
 //准备yuv数据
-// ffmpeg -i v1080.mp4 -t 10 -s 240x128 -pix_fmt yuv420p  out240x128.yuv
+// ffmpeg -i friends.mp4 -t 10 -s 240x128 -pix_fmt yuv420p  out240x128.yuv
 XVideoWidget::XVideoWidget(QWidget *parent)
 	: QOpenGLWidget(parent)
 {
@@ -104,10 +126,7 @@ void XVideoWidget::Init(int width, int height)
 	//创建材质显卡空间
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, width / 2, height / 2, 0, GL_RED, GL_UNSIGNED_BYTE, 0);
 
-
 	mux.unlock();
-
-
 }
 //初始化opengl
 void XVideoWidget::initializeGL()

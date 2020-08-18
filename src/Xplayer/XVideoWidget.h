@@ -4,6 +4,9 @@
 #include <QOpenGLFunctions>
 #include <QGLShaderProgram>
 #include <mutex>
+
+struct AVFrame;
+
 class XVideoWidget : public QOpenGLWidget, protected QOpenGLFunctions
 {
 	Q_OBJECT
@@ -11,6 +14,9 @@ class XVideoWidget : public QOpenGLWidget, protected QOpenGLFunctions
 public:
 	//自动获取视频尺寸
 	void Init(int width, int height);
+
+	//不管成功与否都释放frame空间
+	virtual void Repaint(AVFrame *frame);
 
 	XVideoWidget(QWidget *parent);
 	~XVideoWidget();
@@ -37,7 +43,6 @@ private:
 	//材质内存空间
 	unsigned char *datas[3] = { 0 };
 
-	int width = 240;
-	int height = 128;
-
+	int width = 640;
+	int height = 360;
 };
