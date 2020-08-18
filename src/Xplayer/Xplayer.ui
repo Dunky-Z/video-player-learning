@@ -1,0 +1,25 @@
+<UI version="4.0" >
+ <class>XplayerClass</class>
+ <widget class="QWidget" name="XplayerClass" >
+  <property name="objectName" >
+   <string notr="true">XplayerClass</string>
+  </property>
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>600</width>
+    <height>400</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Xplayer</string>
+  </property>$centralwidget$
+ </widget>
+ <layoutDefault spacing="6" margin="11" />
+ <pixmapfunction></pixmapfunction>
+ <resources>
+   <include location="Xplayer.qrc"/>
+ </resources>
+ <connections/>
+</UI>
