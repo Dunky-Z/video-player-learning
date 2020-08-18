@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.28307.852
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video-player-learning", "video-player-learning.vcxproj", "{D5D3114E-62E8-47D3-8712-E47325BA79C5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "QTAudio", "..\QTAudio\QTAudio.vcxproj", "{50C423D1-2441-435A-8D0A-D3E45C521FF2}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGLTest", "..\OpenGLTest\OpenGLTest.vcxproj", "{1CD59AC4-39AB-4C40-86D1-C8B97372B667}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +25,18 @@ Global
 		{D5D3114E-62E8-47D3-8712-E47325BA79C5}.Release|x64.Build.0 = Release|x64
 		{D5D3114E-62E8-47D3-8712-E47325BA79C5}.Release|x86.ActiveCfg = Release|Win32
 		{D5D3114E-62E8-47D3-8712-E47325BA79C5}.Release|x86.Build.0 = Release|Win32
+		{50C423D1-2441-435A-8D0A-D3E45C521FF2}.Debug|x64.ActiveCfg = Debug|x64
+		{50C423D1-2441-435A-8D0A-D3E45C521FF2}.Debug|x64.Build.0 = Debug|x64
+		{50C423D1-2441-435A-8D0A-D3E45C521FF2}.Debug|x86.ActiveCfg = Debug|x64
+		{50C423D1-2441-435A-8D0A-D3E45C521FF2}.Release|x64.ActiveCfg = Release|x64
+		{50C423D1-2441-435A-8D0A-D3E45C521FF2}.Release|x64.Build.0 = Release|x64
+		{50C423D1-2441-435A-8D0A-D3E45C521FF2}.Release|x86.ActiveCfg = Release|x64
+		{1CD59AC4-39AB-4C40-86D1-C8B97372B667}.Debug|x64.ActiveCfg = Debug|x64
+		{1CD59AC4-39AB-4C40-86D1-C8B97372B667}.Debug|x64.Build.0 = Debug|x64
+		{1CD59AC4-39AB-4C40-86D1-C8B97372B667}.Debug|x86.ActiveCfg = Debug|x64
+		{1CD59AC4-39AB-4C40-86D1-C8B97372B667}.Release|x64.ActiveCfg = Release|x64
+		{1CD59AC4-39AB-4C40-86D1-C8B97372B667}.Release|x64.Build.0 = Release|x64
+		{1CD59AC4-39AB-4C40-86D1-C8B97372B667}.Release|x86.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
