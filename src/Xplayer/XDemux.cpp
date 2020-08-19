@@ -1,21 +1,19 @@
+
 #include "XDemux.h"
-
-extern "C"
-{
-#include "libavformat/avformat.h"
+#include <iostream>
+using namespace std;
+extern "C" {
+	#include "libavformat/avformat.h"
 }
-
 #pragma comment(lib,"avformat.lib")
 #pragma comment(lib,"avutil.lib")
 #pragma comment(lib,"avcodec.lib")
-
-//分数运算
 static double r2d(AVRational r)
 {
 	return r.den == 0 ? 0 : (double)r.num / (double)r.den;
 }
 
-bool XDemux::Open(const char * url)
+bool XDemux::Open(const char *url)
 {
 	Close();
 	//参数设置
@@ -38,7 +36,7 @@ bool XDemux::Open(const char * url)
 		mux.unlock();
 		char buf[1024] = { 0 };
 		av_strerror(re, buf, sizeof(buf) - 1);
-		std::cout << "open " << url << " failed! :" << buf << endl;
+		cout << "open " << url << " failed! :" << buf << endl;
 		return false;
 	}
 	cout << "open " << url << " success! " << endl;
@@ -53,9 +51,12 @@ bool XDemux::Open(const char * url)
 	//打印视频流详细信息
 	av_dump_format(ic, 0, url, 0);
 
+
 	//获取视频流
 	videoStream = av_find_best_stream(ic, AVMEDIA_TYPE_VIDEO, -1, -1, NULL, 0);
 	AVStream *as = ic->streams[videoStream];
+	width = as->codecpar->width;
+	height = as->codecpar->height;
 
 	cout << "=======================================================" << endl;
 	cout << videoStream << "视频信息" << endl;
@@ -63,8 +64,6 @@ bool XDemux::Open(const char * url)
 	cout << "format = " << as->codecpar->format << endl;
 	cout << "width=" << as->codecpar->width << endl;
 	cout << "height=" << as->codecpar->height << endl;
-	width = as->codecpar->width;
-	height = as->codecpar->height;
 	//帧率 fps 分数转换
 	cout << "video fps = " << r2d(as->avg_frame_rate) << endl;
 
@@ -73,7 +72,6 @@ bool XDemux::Open(const char * url)
 	//获取音频流
 	audioStream = av_find_best_stream(ic, AVMEDIA_TYPE_AUDIO, -1, -1, NULL, 0);
 	as = ic->streams[audioStream];
-
 	sampleRate = as->codecpar->sample_rate;
 	channels = as->codecpar->channels;
 
@@ -87,73 +85,37 @@ bool XDemux::Open(const char * url)
 	//1024 * 2 * 2 = 4096  fps = sample_rate/frame_size
 	mux.unlock();
 
+
 	return true;
 }
-
-AVPacket * XDemux::Read()
-{
-	mux.lock();
-	if (!ic) //容错
-	{
-		mux.unlock();
-		return 0;
-	}
-
-	AVPacket *pkt = av_packet_alloc();
-	//读取一帧，并分配空间
-	int re = av_read_frame(ic, pkt);
-	if (re != 0)
-	{
-		mux.unlock();
-		//防止内存泄漏
-		av_packet_free(&pkt);
-		return 0;
-	}
-	//pts转换为毫秒
-	pkt->pts = pkt->pts*(1000 * (r2d(ic->streams[pkt->stream_index]->time_base)));
-	pkt->dts = pkt->dts*(1000 * (r2d(ic->streams[pkt->stream_index]->time_base)));
-	mux.unlock();
-	cout << pkt->pts << " " << std::flush;
-
-	return pkt;
-}
-
-AVCodecParameters * XDemux::CopyVPara()
+//清空读取缓存
+void XDemux::Clear()
 {
 	mux.lock();
 	if (!ic)
 	{
 		mux.unlock();
-		return NULL;
+		return ;
 	}
-	AVCodecParameters *pa = avcodec_parameters_alloc();
-	avcodec_parameters_copy(pa, ic->streams[videoStream]->codecpar);
+	//清理读取缓冲
+	avformat_flush(ic);
 	mux.unlock();
-	return pa;
 }
-
-AVCodecParameters * XDemux::CopyAPara()
+void XDemux::Close()
 {
 	mux.lock();
 	if (!ic)
 	{
 		mux.unlock();
-		return NULL;
+		return;
 	}
-	AVCodecParameters *pa = avcodec_parameters_alloc();
-	avcodec_parameters_copy(pa, ic->streams[audioStream]->codecpar);
+	avformat_close_input(&ic);
+	//媒体总时长（毫秒）
+	totalMs = 0;
 	mux.unlock();
-	return pa;
 }
 
-bool XDemux::IsAudio(AVPacket * pkt)
-{
-	if (!pkt) return false;
-	if (pkt->stream_index == videoStream)
-		return false;
-	return true;
-}
-
+//seek 位置 pos 0.0 ~1.0
 bool XDemux::Seek(double pos)
 {
 	mux.lock();
@@ -172,40 +134,74 @@ bool XDemux::Seek(double pos)
 	if (re < 0) return false;
 	return true;
 }
-
-void XDemux::Clear()
+//获取视频参数  返回的空间需要清理  avcodec_parameters_free
+AVCodecParameters *XDemux::CopyVPara()
 {
 	mux.lock();
 	if (!ic)
 	{
 		mux.unlock();
-		return;
+		return NULL;
 	}
-	//清理读取缓冲
-	avformat_flush(ic);
+	AVCodecParameters *pa = avcodec_parameters_alloc();
+	avcodec_parameters_copy(pa, ic->streams[videoStream]->codecpar);
 	mux.unlock();
+	return pa;
 }
 
-void XDemux::Close()
+//获取音频参数  返回的空间需要清理 avcodec_parameters_free
+AVCodecParameters *XDemux::CopyAPara()
 {
 	mux.lock();
 	if (!ic)
 	{
 		mux.unlock();
-		return;
+		return NULL;
 	}
-	avformat_close_input(&ic);
-	//媒体总时长（毫秒）重置
-	totalMs = 0;
+	AVCodecParameters *pa = avcodec_parameters_alloc();
+	avcodec_parameters_copy(pa, ic->streams[audioStream]->codecpar);
 	mux.unlock();
+	return pa;
 }
+bool XDemux::IsAudio(AVPacket *pkt)
+{
+	if (!pkt) return false;
+	if (pkt->stream_index == videoStream)
+		return false;
+	return true;
 
+}
+//空间需要调用者释放 ，释放AVPacket对象空间，和数据空间 av_packet_free
+AVPacket *XDemux::Read()
+{
+	mux.lock();
+	if (!ic) //容错
+	{
+		mux.unlock();
+		return 0;
+	}
+	AVPacket *pkt = av_packet_alloc();
+	//读取一帧，并分配空间
+	int re = av_read_frame(ic, pkt);
+	if (re != 0)
+	{
+		mux.unlock();
+		av_packet_free(&pkt);
+		return 0;
+	}
+	//pts转换为毫秒
+	pkt->pts = pkt->pts*(1000 * (r2d(ic->streams[pkt->stream_index]->time_base)));
+	pkt->dts = pkt->dts*(1000 * (r2d(ic->streams[pkt->stream_index]->time_base)));
+	mux.unlock();
+	cout << pkt->pts << " "<<flush;
+	return pkt;
+
+}
 XDemux::XDemux()
 {
 	static bool isFirst = true;
-	//互斥变量
 	static std::mutex dmux;
-	dmux.lock();//两个线程同时创建时保证只有创建一次
+	dmux.lock();
 	if (isFirst)
 	{
 		//初始化封装库

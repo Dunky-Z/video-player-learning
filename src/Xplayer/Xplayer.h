@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <QtWidgets/QWidget>
+
 #include "ui_Xplayer.h"
 
 using std::cout;

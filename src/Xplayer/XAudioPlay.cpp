@@ -1,10 +1,7 @@
-
-#include <mutex>
+#include "XAudioPlay.h"
 #include <QAudioFormat>
 #include <QAudioOutput>
-
-#include "XAudioPlay.h"
-
+#include <mutex>
 class CXAudioPlay :public XAudioPlay
 {
 public:
@@ -13,11 +10,10 @@ public:
 	std::mutex mux;
 	virtual void Close()
 	{
-		//打开和关闭可能不在一个线程里操作
 		mux.lock();
 		if (io)
 		{
-			io->close();
+			io->close ();
 			io = NULL;
 		}
 		if (output)
@@ -42,9 +38,24 @@ public:
 		output = new QAudioOutput(fmt);
 		io = output->start(); //开始播放
 		mux.unlock();
-		if (io)
+		if(io)
 			return true;
 		return false;
+	}
+	virtual bool Write(const unsigned char *data, int datasize)
+	{
+		if (!data || datasize <= 0)return false;
+		mux.lock();
+		if (!output || !io)
+		{
+			mux.unlock();
+			return false;
+		}
+		int size = io->write((char *)data, datasize);
+		mux.unlock();
+		if (datasize != size)
+			return false;
+		return true;
 	}
 
 	virtual int GetFree()
@@ -58,22 +69,6 @@ public:
 		int free = output->bytesFree();
 		mux.unlock();
 		return free;
-	}
-
-	virtual bool Write(const unsigned char *data, int datasize)
-	{
-		if (!data || datasize <= 0)	return false;
-		mux.lock();
-		if (!output || !io)
-		{
-			mux.unlock();
-			return false;
-		}
-		int size = io->write((char *)data, datasize);
-		mux.unlock();
-		if (datasize != size)
-			return false;
-		return true;
 	}
 };
 XAudioPlay *XAudioPlay::Get()

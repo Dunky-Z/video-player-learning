@@ -24,6 +24,25 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <QtRcc Include="..\src\Xplayer\Xplayer.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="..\src\Xplayer\Xplayer.ui">
+      <Filter>Resource Files</Filter>
+    </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\Xplayer\IVideoCall.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Xplayer\XAudioPlay.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Xplayer\XAudioThread.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\src\Xplayer\XDecode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -33,7 +52,7 @@
     <ClInclude Include="..\src\Xplayer\XResample.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Xplayer\XAudioPlay.h">
+    <ClInclude Include="..\src\Xplayer\XVideoThread.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -46,17 +65,13 @@
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
-    <QtRcc Include="..\src\Xplayer\Xplayer.qrc">
-      <Filter>Resource Files</Filter>
-    </QtRcc>
-  </ItemGroup>
-  <ItemGroup>
-    <QtUic Include="..\src\Xplayer\Xplayer.ui">
-      <Filter>Resource Files</Filter>
-    </QtUic>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="..\src\Xplayer\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Xplayer\XAudioPlay.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Xplayer\XAudioThread.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Xplayer\XDecode.cpp">
@@ -68,13 +83,13 @@
     <ClCompile Include="..\src\Xplayer\Xplayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Xplayer\XVideoWidget.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Xplayer\XResample.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Xplayer\XAudioPlay.cpp">
+    <ClCompile Include="..\src\Xplayer\XVideoThread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Xplayer\XVideoWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,22 +1,16 @@
 #pragma once
 #include <mutex>
-#include <iostream>
 
-extern "C"
-{
-#include<libavcodec/avcodec.h>
-}
-
-using std::cout;
-using std::endl;
-
-struct AVCodecParameters;
-struct AVCodecContext;
 struct AVFrame;
+struct AVPacket;
+struct AVCodecContext;
+struct AVCodecParameters;
 
 class XDecode
 {
 public:
+	bool isAudio = false;
+
 	//打开解码器,不管成功与否都释放para空间
 	virtual bool Open(AVCodecParameters *para);
 

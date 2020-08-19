@@ -1,16 +1,23 @@
 #include <iostream>
 #include "XResample.h"
-
 extern "C" {
 #include <libswresample/swresample.h>
 #include <libavcodec/avcodec.h>
 }
 #pragma comment(lib,"swresample.lib")
+using namespace std;
 
-using std::cout;
-using std::endl;
+void XResample::Close()
+{
+	mux.lock();
+	if (actx)
+		swr_free(&actx);
 
-bool XResample::Open(AVCodecParameters * para)
+	mux.unlock();
+}
+
+//输出参数和输入参数一致除了采样格式，输出为S16
+bool XResample::Open(AVCodecParameters *para,bool isClearPara)
 {
 	if (!para)return false;
 	mux.lock();
@@ -21,14 +28,15 @@ bool XResample::Open(AVCodecParameters * para)
 	//如果actx为NULL会分配空间
 	actx = swr_alloc_set_opts(actx,
 		av_get_default_channel_layout(2),	//输出格式
-		AV_SAMPLE_FMT_S16,					//输出样本格式
+		(AVSampleFormat)outFormat,			//输出样本格式 1 AV_SAMPLE_FMT_S16
 		para->sample_rate,					//输出采样率
 		av_get_default_channel_layout(para->channels),//输入格式
 		(AVSampleFormat)para->format,
 		para->sample_rate,
 		0, 0
 	);
-	avcodec_parameters_free(&para);
+	if(isClearPara)
+		avcodec_parameters_free(&para);
 	int re = swr_init(actx);
 	mux.unlock();
 	if (re != 0)
@@ -42,10 +50,7 @@ bool XResample::Open(AVCodecParameters * para)
 	return true;
 }
 
-void XResample::Close()
-{
-}
-
+//返回重采样后大小,不管成功与否都释放indata空间
 int XResample::Resample(AVFrame *indata, unsigned char *d)
 {
 	if (!indata) return 0;
@@ -60,11 +65,10 @@ int XResample::Resample(AVFrame *indata, unsigned char *d)
 		data, indata->nb_samples,		//输出
 		(const uint8_t**)indata->data, indata->nb_samples	//输入
 	);
-	if (re <= 0)	return re;
+	if (re <= 0)return re;
 	int outSize = re * indata->channels * av_get_bytes_per_sample((AVSampleFormat)outFormat);
 	return outSize;
 }
-
 XResample::XResample()
 {
 }

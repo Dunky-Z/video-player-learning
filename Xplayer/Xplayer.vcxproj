@@ -11,26 +11,31 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\Xplayer\XAudioPlay.h" />
-    <ClInclude Include="..\src\Xplayer\XDecode.h" />
-    <ClInclude Include="..\src\Xplayer\XDemux.h" />
-    <ClInclude Include="..\src\Xplayer\XResample.h" />
-    <QtMoc Include="..\src\Xplayer\XVideoWidget.h" />
-    <QtMoc Include="..\src\Xplayer\Xplayer.h" />
-  </ItemGroup>
-  <ItemGroup>
     <QtRcc Include="..\src\Xplayer\Xplayer.qrc" />
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="..\src\Xplayer\Xplayer.ui" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\Xplayer\IVideoCall.h" />
+    <ClInclude Include="..\src\Xplayer\XAudioPlay.h" />
+    <ClInclude Include="..\src\Xplayer\XAudioThread.h" />
+    <ClInclude Include="..\src\Xplayer\XDecode.h" />
+    <ClInclude Include="..\src\Xplayer\XDemux.h" />
+    <ClInclude Include="..\src\Xplayer\XResample.h" />
+    <ClInclude Include="..\src\Xplayer\XVideoThread.h" />
+    <QtMoc Include="..\src\Xplayer\XVideoWidget.h" />
+    <QtMoc Include="..\src\Xplayer\Xplayer.h" />
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="..\src\Xplayer\main.cpp" />
     <ClCompile Include="..\src\Xplayer\XAudioPlay.cpp" />
+    <ClCompile Include="..\src\Xplayer\XAudioThread.cpp" />
     <ClCompile Include="..\src\Xplayer\XDecode.cpp" />
     <ClCompile Include="..\src\Xplayer\XDemux.cpp" />
     <ClCompile Include="..\src\Xplayer\Xplayer.cpp" />
     <ClCompile Include="..\src\Xplayer\XResample.cpp" />
+    <ClCompile Include="..\src\Xplayer\XVideoThread.cpp" />
     <ClCompile Include="..\src\Xplayer\XVideoWidget.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -80,7 +85,7 @@
   </ItemDefinitionGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>msvc2017_64</QtInstall>
-    <QtModules>core;gui;multimedia;opengl;openglextensions;uitools;widgets</QtModules>
+    <QtModules>core;gui;multimedia;multimediawidgets;opengl;openglextensions;uitools;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
