@@ -41,6 +41,11 @@ public:
 	//媒体总时长，毫秒
 	int totalMs = 0;
 	int width, height;
+	//音频采样率
+	int sampleRate = 0;
+	//音频通道数
+	int channels = 0;
+
 protected:
 	std::mutex mux;
 	//解封装上下文
