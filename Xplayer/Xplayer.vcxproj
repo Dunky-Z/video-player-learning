@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClInclude Include="..\src\Xplayer\XDecode.h" />
     <ClInclude Include="..\src\Xplayer\XDemux.h" />
+    <ClInclude Include="..\src\Xplayer\XResample.h" />
     <QtMoc Include="..\src\Xplayer\XVideoWidget.h" />
     <QtMoc Include="..\src\Xplayer\Xplayer.h" />
   </ItemGroup>
@@ -27,6 +28,7 @@
     <ClCompile Include="..\src\Xplayer\XDecode.cpp" />
     <ClCompile Include="..\src\Xplayer\XDemux.cpp" />
     <ClCompile Include="..\src\Xplayer\Xplayer.cpp" />
+    <ClCompile Include="..\src\Xplayer\XResample.cpp" />
     <ClCompile Include="..\src\Xplayer\XVideoWidget.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

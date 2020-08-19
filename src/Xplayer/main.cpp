@@ -5,6 +5,7 @@
 #include "XDemux.h"
 #include "Xplayer.h"
 #include "XDecode.h"
+#include "XResample.h"
 
 
 class TestThread :public QThread
@@ -28,8 +29,9 @@ public:
 		//vdecode.Clear();
 		//vdecode.Close();
 		cout << "adecode.Open() = " << adecode.Open(demux.CopyAPara()) << endl;
-
+		cout << "resample.Open = " << resample.Open(demux.CopyAPara()) << endl;
 	}
+	unsigned char *pcm = new unsigned char[1024 * 1024];
 	void run()
 	{
 		for (;;)
@@ -39,6 +41,7 @@ public:
 			{
 				adecode.Send(pkt);
 				AVFrame *frame = adecode.Recv();
+				cout << "Resample:" << resample.Resample(frame, pcm) << " ";
 				cout << "Audio:" << frame << endl;
 			}
 			else
@@ -53,11 +56,12 @@ public:
 		}
 
 	}
-	//测试XDemux
+	//测试解封装类XDemux
 	XDemux demux;
-	//解码测试
+	//测试解码类XDecode
 	XDecode vdecode;
-
+	//测试音频重采样类XResample
+	XResample resample;
 	XDecode adecode;
 	XVideoWidget *video;
 private:

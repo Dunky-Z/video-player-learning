@@ -30,6 +30,9 @@
     <ClInclude Include="..\src\Xplayer\XDemux.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\Xplayer\XResample.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="..\src\Xplayer\Xplayer.h">
@@ -63,6 +66,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Xplayer\XVideoWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Xplayer\XResample.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
