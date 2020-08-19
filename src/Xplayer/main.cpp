@@ -46,15 +46,24 @@ public:
 			{
 				adecode.Send(pkt);
 				AVFrame *frame = adecode.Recv();
-				cout << "Resample:" << resample.Resample(frame, pcm) << " ";
-				cout << "Audio:" << frame << endl;
+				int len = resample.Resample(frame, pcm);
+				cout << "Resample:" << len << " ";
+				while (len > 0)
+				{
+					if (XAudioPlay::Get()->GetFree() >= len)
+					{
+						XAudioPlay::Get()->Write(pcm, len);
+						break;
+					}
+					msleep(1);
+				}
 			}
 			else
 			{
 				vdecode.Send(pkt);
 				AVFrame *frame = vdecode.Recv();
 				video->Repaint(frame);
-				msleep(40);
+				//msleep(40);
 				//cout << "Video:" << frame << endl;
 			}
 			if (!pkt)break;

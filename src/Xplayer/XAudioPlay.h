@@ -11,6 +11,10 @@ public:
 	virtual bool Open() = 0;
 	virtual void Close() = 0;
 
+	//≤•∑≈“Ù∆µ
+	virtual bool Write(const unsigned char *data, int datasize) = 0;
+	//≈–∂œ «∑Ò”–◊„πªø’º‰–¥»Î“Ù∆µ
+	virtual int GetFree() = 0;
 	static XAudioPlay *Get();
 	XAudioPlay();
 	virtual ~XAudioPlay();
