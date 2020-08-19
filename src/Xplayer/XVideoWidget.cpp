@@ -2,8 +2,9 @@
 #include <QTimer>
 
 #include "XVideoWidget.h"
-#include <libavutil/frame.h>
+
 extern "C" {
+#include <libavutil/frame.h>
 }
 //自动加双引号
 #define GET_STR(x) #x
