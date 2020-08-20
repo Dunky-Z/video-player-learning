@@ -10,6 +10,21 @@ using std::endl;
 
 
 /*!
+*@brief  设置暂停
+*@param[out] 
+*@param[in]  bool isPause  
+*@return     void  
+*/
+void XDemuxThread::SetPause(bool isPause)
+{
+	mux.lock();
+	this->isPause = isPause;
+	if (at) at->SetPause(isPause);
+	if (vt) vt->SetPause(isPause);
+	mux.unlock();
+}
+
+/*!
 *@brief  关闭线程清理资源
 *@param[out] 
 *@return     void  
@@ -33,6 +48,12 @@ void XDemuxThread::run()
 	while (!isExit)
 	{
 		mux.lock();
+		if (isPause)
+		{
+			mux.unlock();
+			msleep(5);
+			continue;
+		}
 		if (!demux)
 		{
 			mux.unlock();

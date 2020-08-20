@@ -9,6 +9,25 @@ public:
 	QAudioOutput *output = NULL;
 	QIODevice *io = NULL;
 	std::mutex mux;
+	void SetPause(bool isPause)
+	{
+		mux.lock();
+		if (!output)
+		{
+			mux.unlock();
+			return;
+		}
+		if (isPause)
+		{
+			output->suspend();
+		}
+		else
+		{
+			output->resume();
+		}
+		mux.unlock();
+	}
+
 	virtual long long GetNoPlayMs()
 	{
 		mux.lock();
@@ -96,6 +115,7 @@ public:
 		return free;
 	}
 };
+
 XAudioPlay *XAudioPlay::Get()
 {
 	static CXAudioPlay play;

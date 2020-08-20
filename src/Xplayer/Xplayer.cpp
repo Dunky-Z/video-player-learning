@@ -44,6 +44,7 @@ void Xplayer::resizeEvent(QResizeEvent *e)
 	ui.playPos->resize(this->width() - 100, ui.playPos->height());
 	//控制打开文件按钮位置
 	ui.openFile->move(100, this->height() - 150);
+	ui.isPlay->move(ui.openFile->x() + ui.openFile->width() + 10, ui.openFile->y());
 	ui.video->resize(this->size());
 }
 
@@ -77,8 +78,30 @@ void Xplayer::OpenFile()
 		QMessageBox::information(0, "error", "open file failed!");
 		return;
 	}
+	SetPause(dt.isPause);
 }
 
+
+/*!
+*@brief  设置暂停，播放按钮文字
+*@param[out] 
+*@param[in]  bool isPause  
+*@return     void  
+*/
+void Xplayer::SetPause(bool isPause)
+{
+	if (isPause)
+		ui.isPlay->setText(QString::fromLocal8Bit("播 放"));
+	else
+		ui.isPlay->setText(QString::fromLocal8Bit("暂 停"));
+}
+
+void Xplayer::PlayOrPause()
+{
+	bool isPause = !dt.isPause;
+	SetPause(isPause);
+	dt.SetPause(isPause);
+}
 Xplayer::~Xplayer()
 {
 	dt.Close();

@@ -23,6 +23,10 @@ public:
 	virtual void Close();
 
 	void run();
+
+	void SetPause(bool isPause);
+	bool isPause = false;
+
 	XAudioThread();
 	virtual ~XAudioThread();
 

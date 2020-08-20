@@ -18,6 +18,7 @@ public:
 	virtual long long GetNoPlayMs() = 0;
 
 	static XAudioPlay *Get();
+	virtual void SetPause(bool isPause) = 0;
 	XAudioPlay();
 	virtual ~XAudioPlay();
 };

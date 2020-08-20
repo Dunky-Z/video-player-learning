@@ -25,8 +25,12 @@ public:
 	//Ë«»÷È«ÆÁ
 	void mouseDoubleClickEvent(QMouseEvent *e);
 
+	//ÔÝÍ£
+	void SetPause(bool isPause);
+
 public slots:
 	void OpenFile();
+	void PlayOrPause();
 
 private:
     Ui::XplayerClass ui;
