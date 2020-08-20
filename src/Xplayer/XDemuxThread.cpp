@@ -19,6 +19,11 @@ void XDemuxThread::run()
 			msleep(5);
 			continue;
 		}
+		//ÒôÊÓÆµÍ¬²½
+		if (vt && at)
+		{
+			vt->synpts = at->pts;
+		}
 		AVPacket *pkt = demux->Read();
 		if (!pkt)
 		{
