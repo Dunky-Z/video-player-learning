@@ -3,12 +3,13 @@
 #include <mutex>
 #include <QThread>
 #include "IVideoCall.h"
+#include "XDecodeThread.h"
 
 class XDecode;
 struct AVPacket;
 struct AVCodecParameters;
 
-class XVideoThread:public QThread
+class XVideoThread:public XDecodeThread
 {
 public:
 	//打开，不管成功与否都清理
@@ -24,9 +25,7 @@ public:
 	//同步时间，由外部传入
 	long long synpts = 0;
 protected:
-	std::list <AVPacket *> packs;
-	std::mutex mux;
-	XDecode *decode = 0;
+	std::mutex vmux;
 	IVideoCall *call = 0;
 
 

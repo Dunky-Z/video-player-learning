@@ -3,10 +3,12 @@
 #include <QThread>
 
 #include "IVideoCall.h"
+#include "XDecodeThread.h"
+
 class XDemux;
 class XVideoThread;
 class XAudioThread;
-class XDemuxThread :public QThread
+class XDemuxThread :public XDecodeThread
 {
 public:
 	//创建对象并打开

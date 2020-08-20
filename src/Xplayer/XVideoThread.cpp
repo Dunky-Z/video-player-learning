@@ -51,30 +51,29 @@ void XVideoThread::run()
 {
 	while (!isExit)
 	{
-		mux.lock();
-
-		//没有数据
-		if (packs.empty() || !decode)
-		{
-			mux.unlock();
-			msleep(1);
-			continue;
-		}
-
+		vmux.lock();
 		//音视频同步
-		if (synpts < decode->pts)
+		if (synpts > 0 && synpts < decode->pts)
 		{
 			mux.unlock();
 			msleep(1);
 			continue;
 		}
+		AVPacket *pkt = Pop();
+		////没有数据
+		//if (packs.empty() || !decode)
+		//{
+		//	vmux.unlock();
+		//	msleep(1);
+		//	continue;
+		//}
 
-		AVPacket *pkt = packs.front();
-		packs.pop_front();
+		//AVPacket *pkt = packs.front();
+		//packs.pop_front();
 		bool re = decode->Send(pkt);
 		if (!re)
 		{
-			mux.unlock();
+			vmux.unlock();
 			msleep(1);
 			continue;
 		}
@@ -90,7 +89,7 @@ void XVideoThread::run()
 			}
 
 		}
-		mux.unlock();
+		vmux.unlock();
 	}
 }
 
