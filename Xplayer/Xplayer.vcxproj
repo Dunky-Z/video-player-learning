@@ -22,6 +22,7 @@
     <ClInclude Include="..\src\Xplayer\XAudioThread.h" />
     <ClInclude Include="..\src\Xplayer\XDecode.h" />
     <ClInclude Include="..\src\Xplayer\XDemux.h" />
+    <ClInclude Include="..\src\Xplayer\XDemuxThread.h" />
     <ClInclude Include="..\src\Xplayer\XResample.h" />
     <ClInclude Include="..\src\Xplayer\XVideoThread.h" />
     <QtMoc Include="..\src\Xplayer\XVideoWidget.h" />
@@ -33,6 +34,7 @@
     <ClCompile Include="..\src\Xplayer\XAudioThread.cpp" />
     <ClCompile Include="..\src\Xplayer\XDecode.cpp" />
     <ClCompile Include="..\src\Xplayer\XDemux.cpp" />
+    <ClCompile Include="..\src\Xplayer\XDemuxThread.cpp" />
     <ClCompile Include="..\src\Xplayer\Xplayer.cpp" />
     <ClCompile Include="..\src\Xplayer\XResample.cpp" />
     <ClCompile Include="..\src\Xplayer\XVideoThread.cpp" />
