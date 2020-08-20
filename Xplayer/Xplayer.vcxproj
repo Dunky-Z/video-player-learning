@@ -25,6 +25,7 @@
     <ClInclude Include="..\src\Xplayer\XDemux.h" />
     <ClInclude Include="..\src\Xplayer\XDemuxThread.h" />
     <ClInclude Include="..\src\Xplayer\XResample.h" />
+    <QtMoc Include="..\src\Xplayer\XSlider.h" />
     <ClInclude Include="..\src\Xplayer\XVideoThread.h" />
     <QtMoc Include="..\src\Xplayer\XVideoWidget.h" />
     <QtMoc Include="..\src\Xplayer\Xplayer.h" />
@@ -39,6 +40,7 @@
     <ClCompile Include="..\src\Xplayer\XDemuxThread.cpp" />
     <ClCompile Include="..\src\Xplayer\Xplayer.cpp" />
     <ClCompile Include="..\src\Xplayer\XResample.cpp" />
+    <ClCompile Include="..\src\Xplayer\XSlider.cpp" />
     <ClCompile Include="..\src\Xplayer\XVideoThread.cpp" />
     <ClCompile Include="..\src\Xplayer\XVideoWidget.cpp" />
   </ItemGroup>

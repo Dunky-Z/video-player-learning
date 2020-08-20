@@ -200,13 +200,13 @@ AVPacket *XDemux::Read()
 
 AVPacket *XDemux::ReadVideo()
 {
-	//mux.lock();
-	//if (!ic) //ÈÝ´í
-	//{
-	//	mux.unlock();
-	//	return 0;
-	//}
-	//mux.unlock();
+	mux.lock();
+	if (!ic) //ÈÝ´í
+	{
+		mux.unlock();
+		return 0;
+	}
+	mux.unlock();
 
 	AVPacket *pkt = NULL;
 	//·ÀÖ¹×èÈû

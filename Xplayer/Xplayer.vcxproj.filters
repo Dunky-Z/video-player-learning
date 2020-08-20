@@ -72,6 +72,9 @@
     <QtMoc Include="..\src\Xplayer\XVideoWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="..\src\Xplayer\XSlider.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Xplayer\main.cpp">
@@ -108,6 +111,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Xplayer\XDecodeThread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Xplayer\XSlider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
