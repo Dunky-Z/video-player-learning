@@ -14,6 +14,9 @@ public:
 
 	//空间需要调用者释放 ，释放AVPacket对象空间，和数据空间 av_packet_free
 	virtual AVPacket *Read();
+	//只读视频，音频丢弃,空间释放
+	virtual AVPacket *ReadVideo();
+
 
 	virtual bool IsAudio(AVPacket *pkt);
 
@@ -40,13 +43,14 @@ public:
 	int height = 0;
 	int sampleRate = 0;
 	int channels = 0;
+	//音视频索引，读取时区分音视频
+	int videoStream = 0;
+	int audioStream = 1;
 protected:
 	std::mutex mux;
 	//解封装上下文
 	AVFormatContext *ic = NULL;
-	//音视频索引，读取时区分音视频
-	int videoStream = 0;
-	int audioStream = 1;
+
 
 };
 
