@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>967</width>
-    <height>679</height>
+    <width>1274</width>
+    <height>727</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,11 +16,24 @@
   <widget class="XVideoWidget" name="video">
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>140</y>
-     <width>640</width>
-     <height>360</height>
+     <x>0</x>
+     <y>0</y>
+     <width>1280</width>
+     <height>720</height>
     </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="openfile">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>660</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>打开文件</string>
    </property>
   </widget>
  </widget>
@@ -30,10 +43,33 @@
    <class>XVideoWidget</class>
    <extends>QOpenGLWidget</extends>
    <header>XVideoWidget.h</header>
+   <slots>
+    <slot>OpenFile()</slot>
+   </slots>
   </customwidget>
  </customwidgets>
  <resources>
   <include location="Xplayer.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>openfile</sender>
+   <signal>clicked()</signal>
+   <receiver>XplayerClass</receiver>
+   <slot>OpenFile()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>595</x>
+     <y>676</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>596</x>
+     <y>828</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>OpenFile()</slot>
+ </slots>
 </ui>
