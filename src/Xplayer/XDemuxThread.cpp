@@ -29,11 +29,13 @@ void XDemuxThread::run()
 		//判断数据是音频
 		if (demux->IsAudio(pkt))
 		{
-			if (at)at->Push(pkt);
+			if (at)
+				at->Push(pkt);
 		}
 		else //视频
 		{
-			if (vt)vt->Push(pkt);
+			if (vt)
+				vt->Push(pkt);
 		}
 
 		mux.unlock();

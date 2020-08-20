@@ -7,6 +7,7 @@ using namespace std;
 #include "XResample.h"
 #include <QThread>
 #include "XAudioPlay.h"
+#include "XDemuxThread.h"
 #include "XAudioThread.h"
 #include "XVideoThread.h"
 class TestThread :public QThread
@@ -118,16 +119,18 @@ int main(int argc, char *argv[])
 		}
 		if (!pkt)break;
 	}*/
-	TestThread tt;
+	//TestThread tt;
 	QApplication a(argc, argv);
 	Xplayer w;
 	w.show();
-
+	XDemuxThread dt;
+	dt.Open("D:/ITabc/ITabc/video-player/video/friends.mp4",w.ui.video);
+	dt.Start();
 	//³õÊ¼»¯gl´°¿Ú
 	//w.ui.video->Init(tt.demux.width, tt.demux.height);
-	tt.video = w.ui.video;
-	tt.Init();
-	tt.start();
+	//tt.video = w.ui.video;
+	//tt.Init();
+	//tt.start();
 
 
 	return a.exec();
