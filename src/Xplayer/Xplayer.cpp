@@ -26,3 +26,8 @@ void Xplayer::OpenFile()
 		return;
 	}
 }
+
+Xplayer::~Xplayer()
+{
+	dt.Close();
+}

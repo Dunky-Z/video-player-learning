@@ -8,6 +8,26 @@
 using std::cout;
 using std::endl;
 
+
+/*!
+*@brief  关闭线程清理资源
+*@param[out] 
+*@return     void  
+*/
+void XDemuxThread::Close()
+{
+	isExit = true;
+	wait();
+	if (vt) vt->Close();
+	if (at) at->Close();
+	mux.lock();
+	delete vt;
+	delete at;
+	vt = NULL;
+	at = NULL;
+	mux.unlock();
+}
+
 void XDemuxThread::run()
 {
 	while (!isExit)

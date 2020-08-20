@@ -16,7 +16,8 @@ public:
 
 	//启动所有线程
 	virtual void Start();
-
+	//关闭线程清理资源
+	virtual void Close();
 	void run();
 	XDemuxThread();
 	virtual ~XDemuxThread();

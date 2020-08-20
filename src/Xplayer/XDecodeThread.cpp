@@ -14,6 +14,21 @@ void XDecodeThread::Clear()
 	mux.unlock();
 }
 
+void XDecodeThread::Close()
+{
+	Clear();
+
+	//等待线程退出
+	isExit = true;
+	wait();
+	decode->Close();
+
+	mux.lock();
+	delete decode;
+	decode = NULL;
+	mux.unlock();
+}
+
 
 //取出一帧数据，并出栈，如果没有返回NULL
 AVPacket *XDecodeThread::Pop()

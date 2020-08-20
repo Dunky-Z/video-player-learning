@@ -14,6 +14,7 @@ class Xplayer : public QWidget
 
 public:
     Xplayer(QWidget *parent = Q_NULLPTR);
+	~Xplayer();
 public slots:
 	void OpenFile();
 

@@ -18,6 +18,10 @@ public:
 
 	//打开，不管成功与否都清理
 	virtual bool Open(AVCodecParameters *para,int sampleRate,int channels);
+
+	//停止线程，清理资源
+	virtual void Close();
+
 	void run();
 	XAudioThread();
 	virtual ~XAudioThread();
