@@ -15,7 +15,45 @@ Xplayer::Xplayer(QWidget *parent)
 	startTimer(40);
 }
 
-//定时器 滑动条显示
+/*!
+*@brief  双击全屏，重载鼠标事件类函数
+*@param[out] 
+*@param[in]  QMouseEvent * e  鼠标事件类
+*@return     void  
+*/
+void Xplayer::mouseDoubleClickEvent(QMouseEvent *e)
+{
+	if (isFullScreen())
+		this->showNormal();
+	else
+		this->showFullScreen();
+}
+
+
+/*!
+*@brief  窗口尺寸变化
+*@param[out] 
+*@param[in]  QResizeEvent * e  
+*@return     void  
+*/
+void Xplayer::resizeEvent(QResizeEvent *e)
+{
+	//控制滑动条位置
+	ui.playPos->move(50, this->height() - 100);
+
+	ui.playPos->resize(this->width() - 100, ui.playPos->height());
+	//控制打开文件按钮位置
+	ui.openFile->move(100, this->height() - 150);
+	ui.video->resize(this->size());
+}
+
+
+/*!
+*@brief  定时器 滑动条显示
+*@param[out] 
+*@param[in]  QTimerEvent * e  
+*@return     void  
+*/
 void Xplayer::timerEvent(QTimerEvent *e)
 {
 	long long total = dt.totalMs;

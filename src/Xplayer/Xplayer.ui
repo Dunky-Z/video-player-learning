@@ -23,7 +23,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="openfile">
+  <widget class="QPushButton" name="openFile">
    <property name="geometry">
     <rect>
      <x>810</x>
@@ -69,7 +69,7 @@
  </resources>
  <connections>
   <connection>
-   <sender>openfile</sender>
+   <sender>openFile</sender>
    <signal>clicked()</signal>
    <receiver>XplayerClass</receiver>
    <slot>OpenFile()</slot>
