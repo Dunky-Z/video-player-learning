@@ -6,6 +6,7 @@ class XDecode;
 #include <mutex>
 #include <QThread>
 
+
 class XDecodeThread :public QThread
 {
 public:

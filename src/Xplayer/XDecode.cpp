@@ -5,6 +5,12 @@ extern "C"
 #include<libavcodec/avcodec.h>
 }
 using namespace std;
+
+void XFreePacket(AVPacket **pkt)
+{
+	if (pkt || (*pkt))return;
+	av_packet_free(pkt);
+}
 void XDecode::Close()
 {
 	mux.lock();

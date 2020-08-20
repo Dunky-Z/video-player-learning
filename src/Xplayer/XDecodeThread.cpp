@@ -8,7 +8,7 @@ void XDecodeThread::Clear()
 	while (!packs.empty())
 	{
 		AVPacket *pkt = packs.front();
-		//XFreePacket(&pkt);
+		XFreePacket(&pkt);
 		packs.pop_front();
 	}
 	mux.unlock();
