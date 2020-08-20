@@ -1,15 +1,19 @@
-#include "Xplayer.h"
-#include <QtWidgets/QApplication>
+#include <QThread>
 #include <iostream>
-using namespace std;
+#include <QtWidgets/QApplication>
+
 #include "XDemux.h"
+#include "Xplayer.h"
 #include "XDecode.h"
 #include "XResample.h"
-#include <QThread>
 #include "XAudioPlay.h"
 #include "XDemuxThread.h"
 #include "XAudioThread.h"
 #include "XVideoThread.h"
+
+using std::cout;
+using std::endl;
+
 class TestThread :public QThread
 {
 public:
@@ -131,7 +135,6 @@ int main(int argc, char *argv[])
 	//tt.video = w.ui.video;
 	//tt.Init();
 	//tt.start();
-
 
 	return a.exec();
 }
