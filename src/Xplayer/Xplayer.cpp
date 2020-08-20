@@ -57,6 +57,7 @@ void Xplayer::resizeEvent(QResizeEvent *e)
 */
 void Xplayer::timerEvent(QTimerEvent *e)
 {
+	if (isSliderPress) return;
 	long long total = dt.totalMs;
 	if (total > 0)
 	{
@@ -101,6 +102,19 @@ void Xplayer::PlayOrPause()
 	bool isPause = !dt.isPause;
 	SetPause(isPause);
 	dt.SetPause(isPause);
+}
+
+void Xplayer::SliderPress()
+{
+	isSliderPress = true;
+}
+
+void Xplayer::SliderRelease()
+{
+	isSliderPress = false;
+	double pos = 0.0;
+	pos = (double)ui.playPos->value() / (double)ui.playPos->maximum();
+	dt.Seek(pos);
 }
 Xplayer::~Xplayer()
 {

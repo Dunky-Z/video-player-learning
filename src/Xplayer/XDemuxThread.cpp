@@ -43,6 +43,30 @@ void XDemuxThread::Close()
 	mux.unlock();
 }
 
+/*!
+*@brief  ÇåÀí»º³å
+*@param[out] 
+*@return     void  
+*/
+void XDemuxThread::Clear()
+{
+	mux.lock();
+	if (demux) demux->Clear();
+	if (vt) vt->Clear();
+	if (at) at->Clear();
+	mux.unlock();
+}
+
+void XDemuxThread::Seek(double pos)
+{
+	Clear();
+	mux.lock();
+	if (demux)
+		demux->Seek(pos);
+	mux.unlock();
+}
+
+
 void XDemuxThread::run()
 {
 	while (!isExit)

@@ -68,6 +68,15 @@ public:
 		}
 		mux.unlock();
 	}
+	void Clear()
+	{
+		mux.lock();
+		if (io)
+		{
+			io->reset();
+		}
+		mux.unlock();
+	}
 	virtual bool Open()
 	{
 		Close();

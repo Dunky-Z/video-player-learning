@@ -31,7 +31,11 @@ public:
 public slots:
 	void OpenFile();
 	void PlayOrPause();
+	void SliderPress();
+	void SliderRelease();
 
+private:
+	bool isSliderPress = false;
 private:
     Ui::XplayerClass ui;
 };

@@ -9,6 +9,7 @@ public:
 	//打开音频播放
 	virtual bool Open() = 0;
 	virtual void Close() = 0;
+	virtual void Clear() = 0;
 
 	//播放音频
 	virtual bool Write(const unsigned char *data, int datasize) = 0;

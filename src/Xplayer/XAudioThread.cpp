@@ -31,6 +31,13 @@ void XAudioThread::Close()
 	}
 }
 
+void XAudioThread::Clear()
+{
+	XDecodeThread::Clear();
+	mux.lock();
+	if (ap) ap->Clear();
+	mux.unlock();
+}
 
 bool XAudioThread::Open(AVCodecParameters *para,int sampleRate, int channels)
 {
