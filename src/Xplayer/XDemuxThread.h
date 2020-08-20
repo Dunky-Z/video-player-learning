@@ -22,7 +22,8 @@ public:
 	XDemuxThread();
 	virtual ~XDemuxThread();
 	bool isExit = false;
-
+	long long pts = 0;
+	long long totalMs = 0;
 protected:
 	std::mutex mux;
 	XDemux *demux = 0;

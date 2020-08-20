@@ -15,6 +15,10 @@ class Xplayer : public QWidget
 public:
     Xplayer(QWidget *parent = Q_NULLPTR);
 	~Xplayer();
+
+	//定时器，滑动条显示
+	void timerEvent(QTimerEvent *e);
+
 public slots:
 	void OpenFile();
 

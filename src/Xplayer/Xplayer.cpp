@@ -12,7 +12,21 @@ Xplayer::Xplayer(QWidget *parent)
 {
     ui.setupUi(this);
 	dt.Start();
+	startTimer(40);
 }
+
+//定时器 滑动条显示
+void Xplayer::timerEvent(QTimerEvent *e)
+{
+	long long total = dt.totalMs;
+	if (total > 0)
+	{
+		double pos = (double)dt.pts / (double)total;
+		int v = ui.playPos->maximum() * pos;
+		ui.playPos->setValue(v);
+	}
+}
+
 void Xplayer::OpenFile()
 {
 	//选择文件

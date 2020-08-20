@@ -26,14 +26,30 @@
   <widget class="QPushButton" name="openfile">
    <property name="geometry">
     <rect>
-     <x>560</x>
-     <y>660</y>
+     <x>810</x>
+     <y>670</y>
      <width>75</width>
      <height>23</height>
     </rect>
    </property>
    <property name="text">
     <string>打开文件</string>
+   </property>
+  </widget>
+  <widget class="QSlider" name="playPos">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>630</y>
+     <width>1251</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>999</number>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
    </property>
   </widget>
  </widget>
