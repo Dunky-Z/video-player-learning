@@ -1,5 +1,5 @@
-#include "XDecodeThread.h"
 #include "XDecode.h"
+#include "XDecodeThread.h"
 
 void XDecodeThread::Clear()
 {
